@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Pet Friendly Roadmap</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
+<style>
+body { margin: 0; padding: 0; background-color: #303030; font-family: sans-serif; }
+
+.header {
+  overflow: hidden;
+  background-color: #f1f1f1;
+  padding: 20px 10px;
+}
+
+.header a {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+.header a.logo {
+  font-size: 30px;
+  font-weight: bold;
+  font-family: montserrat;
+}
+
+.header a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.header a.active {
+  background-color: #006699;
+  color: white;
+}
+
+.header-right {
+  float: right;
+}
+
+@media screen and (max-width: 500px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .header-right {
+    float: none;
+  }
+}
+
+#map-container {
+    position: relative;
+    height: 700px; 
+    width: 98%;
+	text-align: center;
+}
+
+#map {
+    position: relative;
+    height: inherit;
+    width: inherit;
+}
+
+#menu {
+background: #fff;
+position: relative;
+z-index: 1;
+top: 10px;
+left: 10px;
+border-radius: 3px;
+width: 185px;
+border: 1px solid rgba(0, 0, 0, 0.4);
+font-family: 'Open Sans', sans-serif;
+}
+ 
+#menu a {
+font-size: 20px;
+color: #404040;
+display: block;
+margin: 0;
+padding: 0;
+padding: 10px;
+text-decoration: none;
+border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+text-align: center;
+}
+ 
+#menu a:last-child {
+border: none;d
+}
+ 
+#menu a:hover {
+background-color: #f8f8f8;
+color: #404040;
+}
+ 
+#menu a.active {
+background-color: #3887be;
+color: #ffffff;
+}
+ 
+#menu a.active:hover {
+background: #006699;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <img src="images/hotel-indigo.jpg" align="left" height="60px" border="1">
+  <a class="logo" href="http://www.druryinns.com" target="_top">Hotel Indigo - Columbus, IN</a>
+  <div class="header-right">
+  <!--  <a class="active" href="#home">Home</a>  -->
+    <a class="active" href="mailto:dugger@duggerdinners.com?subject=Pet Friendly Roadmap">Feedback</a>
+  <!--  <a href="#about">About</a> -->
+  </div>
+</div>
+
+<table width=100%>
+	<tr>
+		<td width="30%"><div id="menu" style="width:100%; "></div></td>
+		<td width="67%"><img src="images/three-markers.png" align="left" height="160"><h2 style="color: #F0F0F0; font-size:180%; ">PET FRIENDLY ROADMAP</h2><p style="color: #E0E0E0">Welcome to <b>Dugger Dinners' Pet Friendly Roadmap</b> - which is a cool directory for you and your dog. It's a resource of all of the great pet-friendly places and services that are within a short distance of where you are staying. Use the buttons to the left to toggle on and off by location type. Use the Feedback button at the top to provide Dugger and his team feedback or more ideas.</p></td>
+		<td width="3%">&nbsp;</td>
+	</tr>
+</table>
+<br clear="all">
+<div id="map-container" style="padding: 10px 10px 10px 10px; border:1px solid #C0C0C0; ">
+  <div id="map">
+  </div>
+</div>
+
+<script>
+
+mapboxgl.accessToken = 'pk.eyJ1Ijoia2Jhcmxvdy1kdWdnZXIiLCJhIjoiY2w0d3BxM29hMWkxMzNpcW51Z3ZsNmh2OCJ9.UoHLNslkQOXjDkOCH9bfHg';
+
+const map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/mapbox/light-v10',
+zoom: 14,
+center: [-77.034084142948,38.900671288923]
+});
+
+map.addControl(new mapboxgl.NavigationControl());
+
+const food = 
+
+{'type': 'FeatureCollection','features': [
+
+{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.034084142948, 38.909671288923]},'properties': {'name': 'Ronald Reagan Dog-Friendly Pizza','phone': '2022347336','address': '1471 P St NW','city': 'Washington DC','country': 'United States','crossStreet': 'at 15th St NW','postalCode': '20005','state': 'D.C.'}},
+
+{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.049766, 38.900772]},'properties': {'name': 'Abe Lincoln Burgers & Bones','phone': '2025078357','address': '2221 I St NW','city': 'Washington DC','country': 'United States','crossStreet': 'at 22nd St NW','postalCode': '20037','state': 'D.C.'}},
+
+{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.043929, 38.910525]},'properties': {'name': 'Jefferson and Sons Deli','phone': '2023879338','address': '1512 Connecticut Ave NW','city': 'Washington DC','country': 'United States','crossStreet': 'at Dupont Circle','postalCode': '20036','state': 'D.C.' }}, 
+
+]
+};
+
+/**
+* Assign a unique id to each store. You'll use this `id`
+* later to associate each point on the map with a listing
+* in the sidebar.
+*/
+food.features.forEach((foodplace, i) => {
+foodplace.properties.id = i;
+});
+
+const petsvcs = 
+
+{'type': 'FeatureCollection','features': [
+
+{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.0672, 38.90516896]},'properties': {'name': 'Franklin D for Dog Spa','phone': '2023379338','address': '3333 M St NW','city': 'Washington DC','country': 'United States','crossStreet': 'at 34th St NW','postalCode': '20007','state': 'D.C.'}},
+
+{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.002583742142, 38.900041080933]},'properties': {'name': 'DC City Emergency Vet','phone': '2025479338','address': '221 Pennsylvania Ave SE','city': 'Washington DC','country': 'United States','crossStreet': 'btwn 2nd & 3rd Sts. SE','postalCode': '20003','state': 'D.C.'}},
+
+]
+};
+
+const dogparks = 
+
+{'type': 'FeatureCollection','features': [
+
+{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.026559, 38.902781]},'properties': {'name': 'Bojangles and Dog Park','address': '1011 K St NW','city': 'Washington','country': 'United States','postalCode': '20001','state': 'DC'}},
+
+]
+};
+
+/**
+* Assign a unique id to each store. You'll use this `id`
+* later to associate each point on the map with a listing
+* in the sidebar.
+*/
+dogparks.features.forEach((dogpark, i) => {
+dogpark.properties.id = i;
+});
+ 
+// Wait until the map has finished loading.
+map.on('load', () => {
+
+/*
+	map.LoadImage('https://kbarlow-dugger.github.io/Dog-GO/dugger-icon.png',(error, image) => {
+		if (error) throw error;
+		map.addImage('dugger',image);
+	
+		// Add a data source containing one point feature.
+		map.addSource('points', {
+			'type': 'geojson',
+			'data': {
+			'type': 'FeatureCollection',
+				'features': [
+				{
+				'type': 'Feature',
+				'geometry': {
+				'type': 'Point',
+				'coordinates': [-77.036560,38.897957]
+				}
+				}]			
+				}
+		});
+		
+		map.addLayer({
+			'id': 'points',
+			'type': 'symbol',
+			'source': 'points', // reference the data source
+			'layout': {
+				'icon-image': 'dugger', // reference the image
+				'icon-size': 0.25
+			}
+		});
+	});
+	
+ */ 	
+
+		// Add Pet Friendly Restaurants data 
+		map.addSource('pet friendly restaurants', {
+			'type': 'geojson',
+			'data': food
+		});
+
+		map.addLayer({
+			'id': 'pet friendly restaurants',
+			'type': 'circle',
+			'source': 'pet friendly restaurants',
+			'layout': {
+			// Make the layer visible by default.
+			'visibility': 'visible',
+			},
+			'paint': {
+			'circle-radius': 11,
+			'circle-color': 'rgba(0,133,62,1)'
+			}
+		});
+ 
+		// Add the Pet Services items 
+		map.addSource('pet services', {
+			'type': 'geojson',
+			'data': petsvcs
+		});
+		
+		map.addLayer({
+			'id': 'pet services',
+			'type': 'circle',
+			'source': 'pet services',
+			'layout': {
+			// Make the layer visible by default.
+			'visibility': 'visible',
+			},
+			'paint': {
+			'circle-radius': 11,
+			'circle-color': 'rgba(127,0,0,1)'
+			}
+		});
+
+	// Add the Dog Friendly Parks 
+	map.addSource('dog friendly parks', {
+		'type': 'geojson',
+		'data': dogparks
+	});
+
+	map.addLayer({
+		'id': 'dog friendly parks',
+		'type': 'circle',
+		'source': 'dog friendly parks',
+		'layout': {
+		// Make the layer visible by default.
+		'visibility': 'visible',
+		},
+		'paint': {
+		'circle-radius': 11,
+		'circle-color': 'rgba(61,114,196,1)'
+		}
+	});
+	
+	map.loadImage(
+		'https://kbarlow-dugger.github.io/Dog-GO/dugger-icon.png',
+		(error, image) => {
+		if (error) throw error;
+ 
+		// Add the image to the map style.
+		map.addImage('cat', image);
+ 
+		// Add a data source containing one point feature.
+		map.addSource('point', {
+			'type': 'geojson',
+			'data': {
+			'type': 'FeatureCollection',
+			'features': [
+			{
+			'type': 'Feature',
+			'geometry': {
+			'type': 'Point',
+			'coordinates': [-77.036674, 38.897606]
+			}
+			}
+			]
+			}
+		});
+ 
+		// Add a layer to use the image to represent the data.
+		map.addLayer({
+			'id': 'points',
+			'type': 'symbol',
+			'source': 'point', // reference the data source
+			'layout': {
+			'icon-image': 'cat', // reference the image
+			'icon-size': 0.35
+			}
+		});
+	});
+});  // end of map.on LOAD 
+ 
+// After the last frame rendered before the map enters an "idle" state.
+map.on('idle', () => {
+// If these two layers were not added to the map, abort
+if (!map.getLayer('pet friendly restaurants') || !map.getLayer('pet services')) {
+return;
+}
+ 
+// Enumerate ids of the layers.
+const toggleableLayerIds = ['pet friendly restaurants','dog friendly parks','pet services'];
+ 
+// Set up the corresponding toggle button for each layer.
+for (const id of toggleableLayerIds) {
+// Skip layers that already have a button set up.
+if (document.getElementById(id)) {
+continue;
+}
+ 
+// Create a link.
+const link = document.createElement('a');
+link.id = id;
+link.href = '#';
+link.textContent = id;
+link.className = 'active';
+ 
+// Show or hide layer when the toggle is clicked.
+link.onclick = function (e) {
+const clickedLayer = this.textContent;
+e.preventDefault();
+e.stopPropagation();
+ 
+const visibility = map.getLayoutProperty(
+clickedLayer,
+'visibility'
+);
+ 
+// Toggle layer visibility by changing the layout object's visibility property.
+if (visibility === 'visible') {
+map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+this.className = '';
+} else {
+this.className = 'active';
+map.setLayoutProperty(
+clickedLayer,
+'visibility',
+'visible'
+);
+}
+};
+ 
+const layers = document.getElementById('menu');
+layers.appendChild(link);
+}
+});
+
+
+  /* ******* FUNCTIONALITY FOR POP-UPS OVER MAP ITEMS ***********************/
+  /* Add an event listener that runs when a user clicks on the map element. */
+  map.on('click', (event) => {
+  // If the user clicked on one of your markers, get its information.
+  const features = map.queryRenderedFeatures(event.point, {
+    layers: ['pet friendly restaurants','pet services', 'dog friendly parks'] // replace with your layer name
+  });
+  if (!features.length) {
+    return;
+  }
+  const feature = features[0];
+
+  /* Create a popup, specify its options and properties, and add it to the map.  */
+  const popup = new mapboxgl.Popup({ offset: [0, -15] })
+  .setLngLat(feature.geometry.coordinates)
+  .setHTML(
+    `<h3>${feature.properties.name}</h3><p>${feature.properties.address}</p>`
+  )
+  .addTo(map);
+  
+});
+</script>
+ 
+</body>
+</html>
