@@ -369,8 +369,7 @@ e.preventDefault();
 e.stopPropagation();
  
 const visibility = map.getLayoutProperty(
-clickedLayer,
-'visibility'
+clickedLayer,'visibility'
 );
  
 // Toggle layer visibility by changing the layout object's visibility property.
@@ -409,7 +408,7 @@ layers.appendChild(link);
   const popup = new mapboxgl.Popup({ offset: [0, -15] })
   .setLngLat(feature.geometry.coordinates)
   .setHTML(
-    `<h3>${feature.properties.name}</h3><p>${feature.properties.address}</p>`
+    `<div style="padding-bottom: 8px;"></div><div style="padding: 10px 10px 10px 10px; background-color:#efefee; font-size: 140%;"><strong>${feature.properties.name}</strong></div><div style="font-size:140%; padding-top:10px;">${feature.properties.address}</div>`
   )
   .addTo(map);
   
