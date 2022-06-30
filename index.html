@@ -126,7 +126,7 @@ background: #006699;
   <div class="header-right">
   <!--  <a class="active" href="#home">Home</a>  -->
     <a class="active" href="mailto:dugger@duggerdinners.com?subject=Pet Friendly Roadmap">Feedback</a>
-  <!--  <a href="#about">About</a> -->
+	<a href="https://www.duggerdinners.com" style="color:#006699;">Powered by Dugger Dinners</a>
   </div>
 </div>
 
@@ -144,6 +144,10 @@ background: #006699;
   <div id="map">
   </div>
 </div>
+
+<hr>
+
+<!-- <div id="listings" class="listings"></div> -->
 
 <script>
 
@@ -191,6 +195,15 @@ const petsvcs =
 ]
 };
 
+/**
+* Assign a unique id to each store. You'll use this `id`
+* later to associate each point on the map with a listing
+* in the sidebar.
+*/
+petsvcs.features.forEach((petsvc, i) => {
+petsvc.properties.id = i;
+});
+
 const dogparks = 
 
 {'type': 'FeatureCollection','features': [
@@ -212,45 +225,13 @@ dogpark.properties.id = i;
 // Wait until the map has finished loading.
 map.on('load', () => {
 
-/*
-	map.LoadImage('https://kbarlow-dugger.github.io/Dog-GO/dugger-icon.png',(error, image) => {
-		if (error) throw error;
-		map.addImage('dugger',image);
-	
-		// Add a data source containing one point feature.
-		map.addSource('points', {
-			'type': 'geojson',
-			'data': {
-			'type': 'FeatureCollection',
-				'features': [
-				{
-				'type': 'Feature',
-				'geometry': {
-				'type': 'Point',
-				'coordinates': [-77.036560,38.897957]
-				}
-				}]			
-				}
-		});
-		
-		map.addLayer({
-			'id': 'points',
-			'type': 'symbol',
-			'source': 'points', // reference the data source
-			'layout': {
-				'icon-image': 'dugger', // reference the image
-				'icon-size': 0.25
-			}
-		});
-	});
-	
- */ 	
-
 		// Add Pet Friendly Restaurants data 
 		map.addSource('pet friendly restaurants', {
 			'type': 'geojson',
 			'data': food
 		});
+
+		// buildLocationList(food);
 
 		map.addLayer({
 			'id': 'pet friendly restaurants',
@@ -272,6 +253,8 @@ map.on('load', () => {
 			'data': petsvcs
 		});
 		
+		// buildLocationList(petsvcs);
+
 		map.addLayer({
 			'id': 'pet services',
 			'type': 'circle',
@@ -286,44 +269,46 @@ map.on('load', () => {
 			}
 		});
 
-	// Add the Dog Friendly Parks 
-	map.addSource('dog friendly parks', {
-		'type': 'geojson',
-		'data': dogparks
-	});
-
-	map.addLayer({
-		'id': 'dog friendly parks',
-		'type': 'circle',
-		'source': 'dog friendly parks',
-		'layout': {
-		// Make the layer visible by default.
-		'visibility': 'visible',
-		},
-		'paint': {
-		'circle-radius': 11,
-		'circle-color': 'rgba(61,114,196,1)'
-		}
-	});
-	
-	map.loadImage(
-		'https://kbarlow-dugger.github.io/PetFriendlyRoadmap/dugger-icon.png',
-		(error, image) => {
-		if (error) throw error;
- 
-		// Add the image to the map style.
-		map.addImage('cat', image);
- 
-		// Add a data source containing one point feature.
-		map.addSource('point', {
+		// Add the Dog Friendly Parks 
+		map.addSource('dog friendly parks', {
 			'type': 'geojson',
-			'data': {
-			'type': 'FeatureCollection',
-			'features': [
-			{
-			'type': 'Feature',
-			'geometry': {
-			'type': 'Point',
+			'data': dogparks
+		});
+
+		// buildLocationList(food);
+	
+		map.addLayer({
+			'id': 'dog friendly parks',
+			'type': 'circle',
+			'source': 'dog friendly parks',
+			'layout': {
+			// Make the layer visible by default.
+			'visibility': 'visible',
+			},
+			'paint': {
+			'circle-radius': 11,
+			'circle-color': 'rgba(61,114,196,1)'
+			}
+		});
+	
+		map.loadImage(
+			'https://kbarlow-dugger.github.io/PetFriendlyRoadmap/dugger-icon.png',
+			(error, image) => {
+			if (error) throw error;
+ 
+			// Add the image to the map style.
+			map.addImage('cat', image);
+ 
+			// Add a data source containing one point feature.
+			map.addSource('point', {
+				'type': 'geojson',
+				'data': {
+				'type': 'FeatureCollection',
+				'features': [
+				{
+				'type': 'Feature',
+				'geometry': {
+				'type': 'Point',
 			'coordinates': [-77.036674, 38.897606]
 			}
 			}
@@ -338,7 +323,7 @@ map.on('load', () => {
 			'source': 'point', // reference the data source
 			'layout': {
 			'icon-image': 'cat', // reference the image
-			'icon-size': 0.35
+			'icon-size': 0.6
 			}
 		});
 	});
@@ -422,6 +407,7 @@ layers.appendChild(link);
   .addTo(map);
   
 });
+
 </script>
  
 </body>
