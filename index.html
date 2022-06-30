@@ -52,6 +52,7 @@ body { margin: 0; padding: 0; background-color: #303030; font-family: sans-serif
     float: none;
     display: block;
     text-align: left;
+	margin-top: 5px; 
   }
   .header-right {
     float: none;
@@ -160,11 +161,11 @@ const food =
 
 {'type': 'FeatureCollection','features': [
 
-{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.034084142948, 38.909671288923]},'properties': {'name': 'Ronald Reagan Dog-Friendly Pizza','phone': '2022347336','address': '1471 P St NW','city': 'Washington DC','country': 'United States','crossStreet': 'at 15th St NW','postalCode': '20005','state': 'D.C.'}},
+{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.034084142948, 38.909671288923]},'properties': {'name': 'Ronald Reagan Dog-Friendly Pizza','phone': '2022347336','address': '1471 P St NW','city': 'Washington','country': 'United States','crossStreet': 'at 15th St NW','postalCode': '20005','state': 'D.C.'}},
 
-{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.049766, 38.900772]},'properties': {'name': 'Abe Lincoln Burgers & Bones','phone': '2025078357','address': '2221 I St NW','city': 'Washington DC','country': 'United States','crossStreet': 'at 22nd St NW','postalCode': '20037','state': 'D.C.'}},
+{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.049766, 38.900772]},'properties': {'name': 'Abe Lincoln Burgers & Bones','phone': '2025078357','address': '2221 I St NW','city': 'Washington','country': 'United States','crossStreet': 'at 22nd St NW','postalCode': '20037','state': 'D.C.'}},
 
-{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.043929, 38.910525]},'properties': {'name': 'Jefferson and Sons Deli','phone': '2023879338','address': '1512 Connecticut Ave NW','city': 'Washington DC','country': 'United States','crossStreet': 'at Dupont Circle','postalCode': '20036','state': 'D.C.' }}, 
+{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.043929, 38.910525]},'properties': {'name': 'Jefferson and Sons Deli','phone': '2023879338','address': '1512 Connecticut Ave NW','city': 'Washington','country': 'United States','crossStreet': 'at Dupont Circle','postalCode': '20036','state': 'D.C.' }}, 
 
 ]
 };
@@ -182,9 +183,9 @@ const petsvcs =
 
 {'type': 'FeatureCollection','features': [
 
-{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.0672, 38.90516896]},'properties': {'name': 'Franklin D for Dog Spa','phone': '2023379338','address': '3333 M St NW','city': 'Washington DC','country': 'United States','crossStreet': 'at 34th St NW','postalCode': '20007','state': 'D.C.'}},
+{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.0672, 38.90516896]},'properties': {'name': 'Franklin D for Dog Spa','phone': '2023379338','address': '3333 M St NW','city': 'Washington','country': 'United States','crossStreet': 'at 34th St NW','postalCode': '20007','state': 'D.C.'}},
 
-{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.002583742142, 38.900041080933]},'properties': {'name': 'DC City Emergency Vet','phone': '2025479338','address': '221 Pennsylvania Ave SE','city': 'Washington DC','country': 'United States','crossStreet': 'btwn 2nd & 3rd Sts. SE','postalCode': '20003','state': 'D.C.'}},
+{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.002583742142, 38.900041080933]},'properties': {'name': 'DC City Emergency Vet','phone': '2025479338','address': '221 Pennsylvania Ave SE','city': 'Washington','country': 'United States','crossStreet': 'btwn 2nd & 3rd Sts. SE','postalCode': '20003','state': 'D.C.'}},
 
 ]
 };
@@ -411,10 +412,12 @@ layers.appendChild(link);
   /* Create a popup, specify its options and properties, and add it to the map.  */
   const popup = new mapboxgl.Popup({ offset: [0, -15] })
   .setLngLat(feature.geometry.coordinates)
-
+  
+  /* removed use by lat long of properties.geometry.coordinates[1] and [0] */  
   .setHTML(
-	'<div style="padding-bottom: 8px;"></div><div style="padding: 10px 10px 10px 10px; background-color:#efefee; font-size: 140%;"><strong>' + feature.properties.name + '</strong></div><div style="font-size:140%; padding-top:10px;">' + feature.properties.address + '</div><div><a target="_new" href="https://maps.google.com/maps?q=loc:' + feature.geometry.coordinates[1] + ',' + feature.geometry.coordinates[0] + '">google map</div>'
+	'<div style="padding-bottom: 8px;"></div><div style="padding: 10px 10px 10px 10px; background-color:#efefee; font-size: 140%;"><strong>' + feature.properties.name + '</strong></div><div style="font-size:140%; padding-top:10px;">' + feature.properties.address + '</div><div><a target="_new" href="https://www.google.com/maps/place/' + feature.properties.address + '+' + feature.properties.city + '+' + feature.properties.state + '+' + feature.properties.postalCode + '">view in google maps</div>'
   )
+  
   .addTo(map);
   
 });
