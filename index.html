@@ -75,12 +75,13 @@ body { margin: 0; padding: 0; background-color: #303030; font-family: sans-serif
 background: #fff;
 position: relative;
 z-index: 1;
-top: 10px;
+top: 15px;
 left: 10px;
 border-radius: 3px;
 width: 185px;
 border: 1px solid rgba(0, 0, 0, 0.4);
 font-family: 'Open Sans', sans-serif;
+margin-bottom: 25px; 
 }
  
 #menu a {
@@ -118,7 +119,7 @@ background: #006699;
 <body>
 
 <div class="header">
-  <img src="images/hotel-indigo.jpg" align="left" height="70px" border="0" style="padding:0 10px; 0 10px;">
+  <img src="images/hotel-indigo.jpg" align="left" height="70px" border="0" style="padding:0 10px; 10px 10px;">
   <a class="logo" href="http://www.druryinns.com" target="_top">Hotel Indigo - Columbus, IN</a>
   <div class="header-right">
   <!--  <a class="active" href="#home">Home</a>  -->
@@ -127,13 +128,15 @@ background: #006699;
   </div>
 </div>
 
-<table width=100%>
-	<tr>
-		<td width="30%"><div id="menu" style="width:100%; "></div></td>
-		<td width="67%"><h2 style="color: #F0F0F0; font-size:180%; ">PET FRIENDLY ROADMAP</h2><p style="color: #E0E0E0">Welcome to <b>Dugger Dinners' Pet Friendly Roadmap</b> - which is a cool directory for you and your dog. It's a resource of all of the great pet-friendly places and services that are within a short distance of where you are staying. Use the buttons to the left to toggle on and off by location type. Use the Feedback button at the top to provide Dugger and his team feedback or more ideas.</p></td>
-		<td width="3%">&nbsp;</td>
-	</tr>
-</table>
+<div class="main">
+    <div style="float:left; width: 24%; margin-right: 3% margin-bottom: 30px; ">
+		<div id="menu" style="width:100%;"></div>
+	</div>
+	<div style="float:right; width: 67%; color: #E0E0E0; padding-right: 5%; padding-left: 1%; margin-top: 0px; ">
+	<h2 style="color: #F0F0F0; font-size:150%; ">PET FRIENDLY ROADMAP</h2>
+	<p>Welcome to <b>Dugger Dinners' Pet Friendly Roadmap</b> - which is a cool directory for you and your dog. It's a resource of all of the great pet-friendly places and services that are within a short distance of where you are staying. Use the buttons to the left to toggle on and off by location type. Use the Feedback button at the top to provide Dugger and his team feedback or more ideas.</p></div>
+</div>
+
 <br clear="all">
 <div id="map-container" style="padding: 10px 10px 10px 10px; border:1px solid #C0C0C0; ">
   <div id="map">
