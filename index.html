@@ -29,7 +29,8 @@ body { margin: 0; padding: 0; background-color: #303030; font-family: sans-serif
 .header a.logo {
   font-size: 30px;
   font-weight: bold;
-  font-family: montserrat;
+  font-family: Montserrat, Verdana, sans-serif; 
+  font-type: montserrat;
 }
 
 .header a:hover {
@@ -117,7 +118,7 @@ background: #006699;
 <body>
 
 <div class="header">
-  <img src="images/hotel-indigo.jpg" align="left" height="60px" border="1">
+  <img src="images/hotel-indigo.jpg" align="left" height="70px" border="0" style="padding:0 10px; 0 10px;">
   <a class="logo" href="http://www.druryinns.com" target="_top">Hotel Indigo - Columbus, IN</a>
   <div class="header-right">
   <!--  <a class="active" href="#home">Home</a>  -->
@@ -129,7 +130,7 @@ background: #006699;
 <table width=100%>
 	<tr>
 		<td width="30%"><div id="menu" style="width:100%; "></div></td>
-		<td width="67%"><img src="images/three-markers.png" align="left" height="160"><h2 style="color: #F0F0F0; font-size:180%; ">PET FRIENDLY ROADMAP</h2><p style="color: #E0E0E0">Welcome to <b>Dugger Dinners' Pet Friendly Roadmap</b> - which is a cool directory for you and your dog. It's a resource of all of the great pet-friendly places and services that are within a short distance of where you are staying. Use the buttons to the left to toggle on and off by location type. Use the Feedback button at the top to provide Dugger and his team feedback or more ideas.</p></td>
+		<td width="67%"><h2 style="color: #F0F0F0; font-size:180%; ">PET FRIENDLY ROADMAP</h2><p style="color: #E0E0E0">Welcome to <b>Dugger Dinners' Pet Friendly Roadmap</b> - which is a cool directory for you and your dog. It's a resource of all of the great pet-friendly places and services that are within a short distance of where you are staying. Use the buttons to the left to toggle on and off by location type. Use the Feedback button at the top to provide Dugger and his team feedback or more ideas.</p></td>
 		<td width="3%">&nbsp;</td>
 	</tr>
 </table>
@@ -407,8 +408,9 @@ layers.appendChild(link);
   /* Create a popup, specify its options and properties, and add it to the map.  */
   const popup = new mapboxgl.Popup({ offset: [0, -15] })
   .setLngLat(feature.geometry.coordinates)
+
   .setHTML(
-    `<div style="padding-bottom: 8px;"></div><div style="padding: 10px 10px 10px 10px; background-color:#efefee; font-size: 140%;"><strong>${feature.properties.name}</strong></div><div style="font-size:140%; padding-top:10px;">${feature.properties.address}</div>`
+	'<div style="padding-bottom: 8px;"></div><div style="padding: 10px 10px 10px 10px; background-color:#efefee; font-size: 140%;"><strong>' + feature.properties.name + '</strong></div><div style="font-size:140%; padding-top:10px;">' + feature.properties.address + '</div><div><a target="_new" href="https://maps.google.com/maps?q=loc:' + feature.geometry.coordinates[1] + ',' + feature.geometry.coordinates[0] + '">google map</div>'
   )
   .addTo(map);
   
