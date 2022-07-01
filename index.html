@@ -162,6 +162,7 @@ center: [-77.034084142948,38.900671288923]
 
 map.addControl(new mapboxgl.NavigationControl());
 
+const food_ct = 3;
 const food = 
 
 {'type': 'FeatureCollection','features': [
@@ -184,6 +185,7 @@ food.features.forEach((foodplace, i) => {
 foodplace.properties.id = i;
 });
 
+const petsvcs_ct = 2;
 const petsvcs = 
 
 {'type': 'FeatureCollection','features': [
@@ -204,6 +206,7 @@ petsvcs.features.forEach((petsvc, i) => {
 petsvc.properties.id = i;
 });
 
+const dogparks_ct = 1;
 const dogparks = 
 
 {'type': 'FeatureCollection','features': [
@@ -350,10 +353,18 @@ continue;
 const link = document.createElement('a');
 link.id = id;
 link.href = '#';
+
+/*  if (id == 'pet friendly restaurants') { num = food_ct; }
+	if (id == 'dog friendly parks') { num = dogparks_ct; }
+	if (id == 'pet services') { num = petsvcs_ct; } 
+	link.textContent = id + ' (' + num + ')';  */
+ 
 link.textContent = id;
+
 link.style.backgroundImage = 'url(images/map-icons/map-' + id.substr(0,3) + id.substr(4,2) + '.png)'; 
 link.style.backgroundRepeat = 'no-repeat'; 
-link.style.backgroundPosition = 'right';
+link.style.backgroundPosition = 'right 5% top 50%';
+
 link.className = 'active';
  
 // Show or hide layer when the toggle is clicked.
