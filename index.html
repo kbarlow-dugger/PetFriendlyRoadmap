@@ -95,7 +95,7 @@ padding: 0;
 padding: 10px;
 text-decoration: none;
 border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-text-align: center;
+text-align: left;
 }
  
 #menu a:last-child {
@@ -208,7 +208,7 @@ const dogparks =
 
 {'type': 'FeatureCollection','features': [
 
-{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.026559, 38.902781]},'properties': {'name': 'Bojangles and Dog Park','address': '1011 K St NW','city': 'Washington','country': 'United States','postalCode': '20001','state': 'DC'}},
+ {'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.026559, 38.902781]},'properties': {'name': 'Bojangles and Dog Park','address': '1011 K St NW','city': 'Washington','country': 'United States','postalCode': '20001','state': 'DC'}}, 
 
 ]
 };
@@ -351,6 +351,9 @@ const link = document.createElement('a');
 link.id = id;
 link.href = '#';
 link.textContent = id;
+link.style.backgroundImage = 'url(images/map-icons/map-' + id.substr(0,3) + id.substr(4,2) + '.png)'; 
+link.style.backgroundRepeat = 'no-repeat'; 
+link.style.backgroundPosition = 'right';
 link.className = 'active';
  
 // Show or hide layer when the toggle is clicked.
@@ -359,9 +362,7 @@ const clickedLayer = this.textContent;
 e.preventDefault();
 e.stopPropagation();
  
-const visibility = map.getLayoutProperty(
-clickedLayer,'visibility'
-);
+const visibility = map.getLayoutProperty(clickedLayer,'visibility');
  
 // Toggle layer visibility by changing the layout object's visibility property.
 if (visibility === 'visible') {
@@ -369,11 +370,7 @@ map.setLayoutProperty(clickedLayer, 'visibility', 'none');
 this.className = '';
 } else {
 this.className = 'active';
-map.setLayoutProperty(
-clickedLayer,
-'visibility',
-'visible'
-);
+map.setLayoutProperty(clickedLayer,'visibility','visible');
 }
 };
  
