@@ -1,0 +1,86 @@
+body {
+  font-family: helvetica;
+}
+
+header {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 0px 10px 0px;
+  text-align: center;
+}
+
+header p {
+  margin-bottom: 0px;
+}
+
+main {
+  margin-top: 5px;
+  border: 2px solid #000000;
+}
+
+.map {
+  height: 300px;
+}
+
+.taco {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.searchForm {
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.result {
+  padding: 5px 5px 50px 5px;
+  position: relative;
+  top: 2px;
+  display: inline-block;
+  cursor: default;
+}
+
+.detail {
+  background-color: #FFFFFF;
+  border: 1px solid #000000;
+  width: 300px;
+  height: 490px;
+  position: fixed;
+  z-index:1000;
+  right: 20px;
+  bottom: 0px;
+}
+
+.photo {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+  .leftBorderCircles {
+    display: none;
+  }
+  .rightBorderCircles {
+    display: none;
+  }
+  .result {
+    border-left: 2px solid #A4D555;
+    border-right: 2px solid #4CDEF5;
+  }
+}
+
+.leftBorderCircles {
+  margin-left: -150px;
+  border-radius: 100%;
+  width: 200px;
+  padding-bottom: 200px;
+}
+
+.rightBorderCircles {
+  margin-right: -150px;
+  float: right;
+  border-radius: 100%;
+  width: 200px;
+  padding-bottom: 200px;
+}
