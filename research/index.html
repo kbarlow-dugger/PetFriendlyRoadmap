@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script defer src="app.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet">
+    <title>Dugger Pet Friendly Search</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+      <div class="col-md-1 leftBorder"></div>
+        <div class="col-md-10">
+          <main>
+            <header><img class="img-fluid" src="logo.png" alt="Dog-GO!" id="logo"></header>
+              <div class="searchForm">
+                <form class="search form-inline" action="">
+                  <input type="text" id="location" class="form-control col-md-10" placeholder="119 Nueces St, Austin TX 78701">
+                  <button type="button" class="btn btn-info">Let's GO!</button>
+                </form>
+                <p>Dugger Search by address, city/state, neighborhood, or zip code.</p>
+              </div>
+              <div class="photo">
+                <img class="taco img-fluid" src="taco.jpg" alt="Taco Dog loves barbecue!">
+              </div>
+            </div>
+          </main>
+        <div class="col-md-1 rightBorder"></div>
+      </div>
+    </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY-gNEsO3s_1BLdXrFsFPryirfO7q7AwY&callback=initMap"
+async defer></script>
+  </body>
+</html>
