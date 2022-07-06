@@ -80,7 +80,7 @@ function initMap(business, latlng) {
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=restaurants,bars&limit=25&radius=20000&sort_by=distance&location=${window.searchText}&term=${window.selectCat}`,
+    "url": `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=parks&limit=25&radius=20000&sort_by=distance&location=${window.searchText}&term=${window.selectCat}`,
     "method": "GET",
     "headers": {
       "authorization": "Bearer Ye-91IGpkqa8Awzi7I2IaNGtfBBICvZjqIRSK-I41kv-GLafsgdSQCh5n7LRZXwKlZDD4TGCTksDCPXg94VNDqyAWREdlje_XFYdjgFXNs8bSkDS5dFmY7wRAoWyYnYx"
@@ -97,7 +97,7 @@ function initMap(business, latlng) {
     $('main').append(resultsDiv);
     // Add instructions message
     let message = document.createElement('p');
-    message.innerText = 'Open up Excel and download this data. Then, hit the button above to return to main screen.';
+    message.innerText = 'Open up Excel and download this data. Then, hit the button above to return to main screen. SRCH:';
     $('header').append(message);
 	
     // Display results
@@ -137,7 +137,7 @@ function initMap(business, latlng) {
   // Error handling
   .fail(function() {
     let errorMessage = document.createElement('p');
-    errorMessage.innerText = "We're sorry. Your search did not return any results. Please click the logo if you'd like to try again. If this is your first search of the day, you will need to authenticate to test mode. Select the GET TEMP DEMO ACCESS link and hit the Request Temporary Access to Demo Server button.";
+    errorMessage.innerText = "We're sorry. Your search did not return any results. Please click the logo if you'd like to try again. If this is your first search of the day, you will need to authenticate to test mode. Select the GET TEMP DEMO ACCESS link and opt in to demo mode.";
     $('main').append(errorMessage);
   });
 });
