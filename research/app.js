@@ -136,7 +136,7 @@ function initMap(business, latlng) {
   // Error handling
   .fail(function() {
     let errorMessage = document.createElement('p');
-    errorMessage.innerText = "<p>We're sorry. Your search did not return any results. Please click the logo if you'd like to try again.</p><div style="color=red;">If this is your first search of the day, you will need to authenticate to test mode. Select the GET TEMP DEMO ACCESS link and opt in to demo mode.</div>";
+    errorMessage.innerText = "We're sorry. Your search did not return any results. Please click the logo if you'd like to try again. If this is your first search of the day, you will need to authenticate to test mode. Select the GET TEMP DEMO ACCESS link and opt in to demo mode.";
     $('main').append(errorMessage);
   });
 });
