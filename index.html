@@ -63,12 +63,11 @@ body { margin: 0; padding: 0; background-color: #303030; color:#F0F0F0; font-fam
 .listings {
 height: 100%;
 overflow: auto;
-padding-bottom: 60px;
+padding-bottom: 15px;
 }
  
 .listings .item {
 display: block;
-border-bottom: 1px solid #eee;
 padding: 10px;
 color: white;
 text-decoration: none;
@@ -117,7 +116,7 @@ border-radius: 3px;
 width: 185px;
 border: 1px solid rgba(0, 0, 0, 0.4);
 font-family: 'Open Sans', sans-serif;
-margin-bottom: 25px; 
+margin-bottom: 5px; 
 }
  
 #menu a {
@@ -165,7 +164,7 @@ background: #006699;
 </div>
 
 <div class="main">
-    <div style="float:left; width: 24%; margin-right: 3% margin-bottom: 30px; ">
+    <div style="float:left; width: 24%; margin-right: 3% margin-bottom: 5px; ">
 		<div id="menu" style="width:100%;"></div>
 	</div>
 	<div style="float:right; width: 67%; color: #E0E0E0; padding-right: 5%; padding-left: 1%; margin-top: 0px; ">
@@ -179,12 +178,11 @@ background: #006699;
   </div>
 </div>
 
-<hr>
-<h2 style="padding-left: 10px;">Pet Friendly Restaurants</h2>
+<h2 style="padding-left: 10px;">PET FRIENDLY RESTAURANTS</h2>
 <div id="listings" class="listings"></div>
-<h2 style="padding-left: 10px;">Dog Friendly Parks</h2>
+<h2 style="padding-left: 10px;">DOG FRIENDLY PARKS</h2>
 <div id="listings_3" class="listings"></div>
-<h2 style="padding-left: 10px;">Various Pet Services</h2>
+<h2 style="padding-left: 10px;">VARIOUS PET SERVICES</h2>
 <div id="listings_2" class="listings"></div>
 
 <script>
@@ -456,7 +454,7 @@ map.on('load', () => {
 	link.href += `${store.properties.address}+${store.properties.city}`;
 	link.href += `+${store.properties.state}+${store.properties.postalCode}`;
 	link.target = '_new';	
-	link.innerHTML = `${store.properties.address} &middot; ${store.properties.city} ${store.properties.state} target=_new`;
+	link.innerHTML = `${store.properties.address} &middot; ${store.properties.city} ${store.properties.state}`;
 
 	}}; /* end of buildLocation List function */
 
