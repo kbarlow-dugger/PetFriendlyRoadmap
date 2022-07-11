@@ -446,7 +446,7 @@ map.on('load', () => {
 	details.innerHTML = `${store.properties.name}`;
 	details.style.fontWeight = '800';
 	details.style.paddingBottom = '3px';	
-	if (store.properties.category) { details.innerHTML += ` (${store.properties.category}) target=_new`; }		
+	if (store.properties.category) { details.innerHTML += ` (${store.properties.category})`; }		
 
 	/* Add the link to the individual listing created above. */
 	const link = listing.appendChild(document.createElement('a'));
