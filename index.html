@@ -7,7 +7,7 @@
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
 <style>
-body { margin: 0; padding: 0; background-color: #303030; font-family: sans-serif; }
+body { margin: 0; padding: 0; background-color: #303030; color:#F0F0F0; font-family: sans-serif; }
 
 .header {
   overflow: hidden;
@@ -60,9 +60,43 @@ body { margin: 0; padding: 0; background-color: #303030; font-family: sans-serif
   }
 }
 
+.listings {
+height: 100%;
+overflow: auto;
+padding-bottom: 60px;
+}
+ 
+.listings .item {
+display: block;
+border-bottom: 1px solid #eee;
+padding: 10px;
+color: white;
+text-decoration: none;
+}
+ 
+.listings .item:last-child {
+border-bottom: none;
+}
+.listings .item .title {
+display: block;
+color: #00853e;
+font-weight: 700;
+}
+ 
+.listings .item .title small {
+font-weight: 300;
+}
+.listings .item.active .title,
+.listings .item .title:hover {
+color: #8cc63f;
+}
+.listings .item.active {
+background-color: #f8f8f8;
+}
+
 #map-container {
     position: relative;
-    height: 700px; 
+    height: 600px; 
     width: 98%;
 	text-align: center;
 }
@@ -146,8 +180,12 @@ background: #006699;
 </div>
 
 <hr>
-
-<!-- <div id="listings" class="listings"></div> -->
+<h2 style="padding-left: 10px;">Pet Friendly Restaurants</h2>
+<div id="listings" class="listings"></div>
+<h2 style="padding-left: 10px;">Dog Friendly Parks</h2>
+<div id="listings_2" class="listings"></div>
+<h2 style="padding-left: 10px;">Various Pet Services</h2>
+<div id="listings_3" class="listings"></div>
 
 <script>
 
@@ -167,14 +205,13 @@ const food =
 
 {'type': 'FeatureCollection','features': [
 
-{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.034084142948, 38.909671288923]},'properties': {'name': 'Ronald Reagan Dog-Friendly Pizza','phone': '2022347336','address': '1471 P St NW','city': 'Washington','country': 'United States','crossStreet': 'at 15th St NW','postalCode': '20005','state': 'D.C.'}},
+{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.034084142948, 38.909671288923]},'properties': {'name': 'Ronald Reagan Dog-Friendly Pizza','phone': '2022347336','address': '1471 P St NW','city': 'Washington','country': 'United States','category': 'Pizza','postalCode': '20005','state': 'D.C.'}},
 
-{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.049766, 38.900772]},'properties': {'name': 'Abe Lincoln Burgers & Bones','phone': '2025078357','address': '2221 I St NW','city': 'Washington','country': 'United States','crossStreet': 'at 22nd St NW','postalCode': '20037','state': 'D.C.'}},
+{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.049766, 38.900772]},'properties': {'name': 'Abe Lincoln Burgers & Bones','phone': '2025078357','address': '2221 I St NW','city': 'Washington','country': 'United States','category': 'Restaurant','postalCode': '20037','state': 'D.C.'}},
 
-{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.043929, 38.910525]},'properties': {'name': 'Jefferson and Sons Deli','phone': '2023879338','address': '1512 Connecticut Ave NW','city': 'Washington','country': 'United States','crossStreet': 'at Dupont Circle','postalCode': '20036','state': 'D.C.' }}, 
+{'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.043929, 38.910525]},'properties': {'name': 'Jefferson and Sons Deli','phone': '2023879338','address': '1512 Connecticut Ave NW','city': 'Washington','country': 'United States','category': 'Restaurant','postalCode': '20036','state': 'D.C.' }}, 
 
-]
-};
+]};
 
 /**
 * Assign a unique id to each store. You'll use this `id`
@@ -194,8 +231,7 @@ const petsvcs =
 
 {'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.002583742142, 38.900041080933]},'properties': {'name': 'DC City Emergency Vet','phone': '2025479338','address': '221 Pennsylvania Ave SE','city': 'Washington','country': 'United States','crossStreet': 'btwn 2nd & 3rd Sts. SE','postalCode': '20003','state': 'D.C.'}},
 
-]
-};
+]};
 
 /**
 * Assign a unique id to each store. You'll use this `id`
@@ -213,8 +249,7 @@ const dogparks =
 
  {'type': 'Feature','geometry': {'type': 'Point','coordinates': [-77.026559, 38.902781]},'properties': {'name': 'Bojangles and Dog Park','address': '1011 K St NW','city': 'Washington','country': 'United States','postalCode': '20001','state': 'DC'}}, 
 
-]
-};
+]};
 
 /**
 * Assign a unique id to each store. You'll use this `id`
@@ -228,76 +263,76 @@ dogpark.properties.id = i;
 // Wait until the map has finished loading.
 map.on('load', () => {
 
-		// Add Pet Friendly Restaurants data 
-		map.addSource('pet friendly restaurants', {
-			'type': 'geojson',
-			'data': food
-		});
+	// Add Pet Friendly Restaurants data 
+	map.addSource('pet friendly restaurants', {
+		'type': 'geojson',
+		'data': food
+	});
 
-		// buildLocationList(food);
-
-		map.addLayer({
-			'id': 'pet friendly restaurants',
-			'type': 'circle',
-			'source': 'pet friendly restaurants',
-			'layout': {
-			// Make the layer visible by default.
-			'visibility': 'visible',
-			},
-			'paint': {
-			'circle-radius': 11,
-			'circle-color': 'rgba(0,133,62,1)'
-			}
-		});
- 
-		// Add the Pet Services items 
-		map.addSource('pet services', {
-			'type': 'geojson',
-			'data': petsvcs
-		});
+	buildLocationList(food,"food");
 		
-		// buildLocationList(petsvcs);
-
-		map.addLayer({
-			'id': 'pet services',
-			'type': 'circle',
-			'source': 'pet services',
-			'layout': {
-			// Make the layer visible by default.
-			'visibility': 'visible',
-			},
-			'paint': {
-			'circle-radius': 11,
-			'circle-color': 'rgba(127,0,0,1)'
-			}
-		});
-
-		// Add the Dog Friendly Parks 
-		map.addSource('dog friendly parks', {
-			'type': 'geojson',
-			'data': dogparks
-		});
-
-		// buildLocationList(food);
+	map.addLayer({
+		'id': 'pet friendly restaurants',
+		'type': 'circle',
+		'source': 'pet friendly restaurants',
+		'layout': {
+		// Make the layer visible by default.
+		'visibility': 'visible',
+		},
+		'paint': {
+		'circle-radius': 11,
+		'circle-color': 'rgba(0,133,62,1)'
+		}
+	});
+ 
+	// Add the Pet Services items 
+	map.addSource('pet services', {
+		'type': 'geojson',
+		'data': petsvcs
+	});
+		
+	buildLocationList2(petsvcs,"services");
 	
-		map.addLayer({
-			'id': 'dog friendly parks',
-			'type': 'circle',
-			'source': 'dog friendly parks',
-			'layout': {
-			// Make the layer visible by default.
-			'visibility': 'visible',
-			},
-			'paint': {
-			'circle-radius': 11,
-			'circle-color': 'rgba(61,114,196,1)'
-			}
-		});
+	map.addLayer({
+		'id': 'pet services',
+		'type': 'circle',
+		'source': 'pet services',
+		'layout': {
+		// Make the layer visible by default.
+		'visibility': 'visible',
+		},
+		'paint': {
+		'circle-radius': 11,
+		'circle-color': 'rgba(127,0,0,1)'
+		}
+	});
+
+	// Add the Dog Friendly Parks 
+	map.addSource('dog friendly parks', {
+		'type': 'geojson',
+		'data': dogparks
+	});
+
+	buildLocationList3(dogparks,"parks");
 	
-		map.loadImage(
-			'https://kbarlow-dugger.github.io/PetFriendlyRoadmap/dugger-icon.png',
-			(error, image) => {
-			if (error) throw error;
+	map.addLayer({
+		'id': 'dog friendly parks',
+		'type': 'circle',
+		'source': 'dog friendly parks',
+		'layout': {
+		// Make the layer visible by default.
+		'visibility': 'visible',
+		},
+		'paint': {
+		'circle-radius': 11,
+		'circle-color': 'rgba(61,114,196,1)'
+		}
+	});
+	
+	map.loadImage(
+		'https://kbarlow-dugger.github.io/PetFriendlyRoadmap/dugger-icon.png',
+		(error, image) => {
+		if (error) throw error;
  
 			// Add the image to the map style.
 			map.addImage('cat', image);
@@ -330,6 +365,101 @@ map.on('load', () => {
 			}
 		});
 	});
+	
+	function buildLocationList(stores, parm) {
+	for (const store of stores.features) {
+
+	const listings = document.getElementById('listings');
+	const listing = listings.appendChild(document.createElement('div'));
+
+	/* if (parm.value === 'services') {
+		const listings_2 = document.getElementById('listings_2');
+		const listing = listings_2.appendChild(document.createElement('div'));
+	}	
+	if (parm.value === 'parks') {
+		const listings_3 = document.getElementById('listings_3');
+		const listing = listings_3.appendChild(document.createElement('div'));
+	}	 */
+	
+	/* Assign a unique `id` and class to each item in the listing. */
+	listing.id = `listing-${store.properties.id}`;
+	listing.className = 'item';
+	
+	/* Add details to the individual listing. */
+	const details = listing.appendChild(document.createElement('div'));
+	details.innerHTML = `${store.properties.name}`;
+	details.style.fontWeight = '800';
+	details.style.paddingBottom = '3px';
+	if (store.properties.category) { details.innerHTML += ` (${store.properties.category})`; }		
+
+	/* Add the link to the individual listing created above. */
+	const link = listing.appendChild(document.createElement('a'));
+	link.className = 'title';
+	link.id = `link-${store.properties.id}`;
+	link.href = `https://www.google.com/maps/place/`; 
+	link.href += `${store.properties.address}+${store.properties.city}`;
+	link.href += `+${store.properties.state}+${store.properties.postalCode}`;
+	link.target = '_new';	
+	link.innerHTML = `${store.properties.address} &middot; ${store.properties.city} ${store.properties.state}`;
+
+	}}; /* end of buildLocation List function */
+	
+	function buildLocationList2(stores, num) {
+	for (const store of stores.features) {
+	/* Add a new listing section to bottom of the page. */
+	const listings_2 = document.getElementById('listings_2');
+	const listing = listings_2.appendChild(document.createElement('div'));
+	/* Assign a unique `id` and class to each item in the listing. */
+	listing.id = `listing-${store.properties.id}`;
+	listing.className = 'item';
+
+	/* Add details to the individual listing. */
+	const details = listing.appendChild(document.createElement('div'));
+	details.innerHTML = `${store.properties.name}`;
+	details.style.fontWeight = '800';
+	details.style.paddingBottom = '3px';	
+	if (store.properties.category) { details.innerHTML += ` (${store.properties.category})`; }		
+
+	/* Add the link to the individual listing created above. */
+	const link = listing.appendChild(document.createElement('a'));
+	link.className = 'title';
+	link.id = `link-${store.properties.id}`;
+	link.href = `https://www.google.com/maps/place/`; 
+	link.href += `${store.properties.address}+${store.properties.city}`;
+	link.href += `+${store.properties.state}+${store.properties.postalCode}`;
+	link.target = '_new';	
+	link.innerHTML = `${store.properties.address} &middot; ${store.properties.city} ${store.properties.state}`;
+
+	}}; /* end of buildLocation List function */
+	
+	function buildLocationList3(stores, num) {
+	for (const store of stores.features) {
+	/* Add a new listing section to bottom of the page. */
+	const listings_3 = document.getElementById('listings_3');
+	const listing = listings_3.appendChild(document.createElement('div'));
+	/* Assign a unique `id` and class to each item in the listing. */
+	listing.id = `listing-${store.properties.id}`;
+	listing.className = 'item';
+
+	/* Add details to the individual listing. */
+	const details = listing.appendChild(document.createElement('div'));
+	details.innerHTML = `${store.properties.name}`;
+	details.style.fontWeight = '800';
+	details.style.paddingBottom = '3px';	
+	if (store.properties.category) { details.innerHTML += ` (${store.properties.category}) target=_new`; }		
+
+	/* Add the link to the individual listing created above. */
+	const link = listing.appendChild(document.createElement('a'));
+	link.className = 'title';
+	link.id = `link-${store.properties.id}`;
+	link.href = `https://www.google.com/maps/place/`; 
+	link.href += `${store.properties.address}+${store.properties.city}`;
+	link.href += `+${store.properties.state}+${store.properties.postalCode}`;
+	link.target = '_new';	
+	link.innerHTML = `${store.properties.address} &middot; ${store.properties.city} ${store.properties.state} target=_new`;
+
+	}}; /* end of buildLocation List function */
+
 });  // end of map.on LOAD 
  
 // After the last frame rendered before the map enters an "idle" state.
