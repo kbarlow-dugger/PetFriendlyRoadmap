@@ -104,7 +104,10 @@ function initMap(business, latlng) {
       // Create each business result div
       let businessInfo = document.createElement('table');
       let businessName = business.name;	 
-	  if (business.price == "$$") { businessPrice = business.price;}
+
+	  let businessPrice = business.price;
+	  if businessPrice === undefined {businessPrice = "n/a";
+	  
 	  let businessRating = business.rating;	  	  
       let businessAddress = `${business.location.display_address[0]}, ${business.location.display_address[1]}`;
 	  let businessCat = business.categories[0].title; 
