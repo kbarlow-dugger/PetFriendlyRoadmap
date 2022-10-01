@@ -106,7 +106,7 @@ function initMap(business, latlng) {
       let businessName = business.name;	 
 
 	  let businessPrice = business.price;
-	  if businessPrice === undefined {businessPrice = "n/a";
+// 	  if businessPrice === undefined {businessPrice = "n/a";
 	  
 	  let businessRating = business.rating;	  	  
       let businessAddress = `${business.location.display_address[0]}, ${business.location.display_address[1]}`;
