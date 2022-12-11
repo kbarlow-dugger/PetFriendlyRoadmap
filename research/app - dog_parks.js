@@ -114,7 +114,7 @@ function initMap(business, latlng) {
 	  let businessReviews = business.review_count;	  	  	  
 	  let lat = business.coordinates.latitude; let long = business.coordinates.longitude;
 	  let distance = Math.round(business.distance,0);
-      businessInfo.innerHTML = `<tr><td width="350px;">${businessName} <a href=${businessURL} target="_new">(yelp)</a></td><td width="400px;">${businessAddress}</td><td width="160px;">${businessCat}</td><td width="60px;">${businessPrice} ${businessRating} ${businessReviews}</td><td style="text-align:right; width:70px;">${distance}</td></tr>`; 
+      businessInfo.innerHTML = `<tr><td width="350px;">${businessName} <a href=${businessURL} target="_new">(yelp)</a></td><td width="400px;">${businessAddress}</td><td width="160px;">${businessCat}</td><td width="60px;">${businessRating} ${businessReviews}</td><td style="text-align:right; width:70px;">${distance}</td></tr>`; 
 	  
       // Create each details div
       let details = document.createElement('div');
