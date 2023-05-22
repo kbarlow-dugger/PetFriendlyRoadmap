@@ -76,11 +76,11 @@ function initMap(business, latlng) {
   window.searchText = $('#location').val();
   window.selectCat = $('#cats').val();
   
-  // Define the settings for the API call //`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=restaurants,bars&open_now=true&sort_by=distance&location=${window.searchText}`,
+  // Define the settings for the API call //`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=parks&sort_by=distance&location=${window.searchText}`,
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=parks&limit=60&radius=20000&sort_by=distance&location=${window.searchText}&term=${window.selectCat}`,
+    "url": `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=parks&limit=50&radius=20000&sort_by=distance&location=${window.searchText}&term=${window.selectCat}`,
     "method": "GET",
     "headers": {
       "authorization": "Bearer Ye-91IGpkqa8Awzi7I2IaNGtfBBICvZjqIRSK-I41kv-GLafsgdSQCh5n7LRZXwKlZDD4TGCTksDCPXg94VNDqyAWREdlje_XFYdjgFXNs8bSkDS5dFmY7wRAoWyYnYx"
@@ -104,13 +104,16 @@ function initMap(business, latlng) {
     results.forEach(function(business) {
       // Create each business result div
       let businessInfo = document.createElement('table');
-      let businessName = business.name;	  
+      let businessName = business.name;
+	  let businessPrice = business.price;
+	  if (businessPrice === undefined) {businessPrice="?";}
+	  let businessRating = business.rating;	  		  
       let businessAddress = `${business.location.display_address[0]}, ${business.location.display_address[1]}`;
 	  let businessCat = business.categories[0].title; 
 	  let businessURL = business.url;	  
 	  let lat = business.coordinates.latitude; let long = business.coordinates.longitude;
 	  let distance = Math.round(business.distance,0);
-      businessInfo.innerHTML = `<tr><td width="350px;">${businessName} <a href=${businessURL} target="_new">(yelp)</a></td><td width="400px;">${businessAddress}</td><td width="160px;">${businessCat}</td><td width="160px;">${lat}</td><td width="160px;">${long}</td><td style="text-align:right; width:70px;">${distance}</td></tr>`; 
+      businessInfo.innerHTML = `<tr><td width="350px;">${businessName} <a href=${businessURL} target="_new">(yelp)</a></td><td width="400px;">${businessAddress}</td><td width="160px;">${businessCat}</td><td width="60px;">${businessPrice} ${businessRating}</td><td style="text-align:right; width:70px;">${distance}</td></tr>`; 
 	  
       // Create each details div
       let details = document.createElement('div');
