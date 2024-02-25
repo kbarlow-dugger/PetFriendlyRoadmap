@@ -79,7 +79,7 @@ function initMap(business, latlng) {
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=hotels&limit=50&radius=20000&sort_by=rating&location=${window.searchText}&term=pet+friendly`,
+    "url": `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=hotels&limit=100&radius=20000&sort_by=rating&location=${window.searchText}&term=pet+friendly`,
     "method": "GET",
     "headers": {
       "authorization": "Bearer Ye-91IGpkqa8Awzi7I2IaNGtfBBICvZjqIRSK-I41kv-GLafsgdSQCh5n7LRZXwKlZDD4TGCTksDCPXg94VNDqyAWREdlje_XFYdjgFXNs8bSkDS5dFmY7wRAoWyYnYx"
