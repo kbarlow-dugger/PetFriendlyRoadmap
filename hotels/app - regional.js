@@ -104,6 +104,7 @@ function initMap(business, latlng) {
       // Create each business result div
       let businessInfo = document.createElement('table');
       let businessName = business.name;	  
+	  let businessReviews = business.review_count;     
 	  let businessPrice = business.price;
 	  if (businessPrice === undefined) {businessPrice="?";}	  
 	  let businessRating = business.rating;	
@@ -114,7 +115,7 @@ function initMap(business, latlng) {
 	  let distance = Math.round(business.distance,0);
       // businessInfo.innerHTML = `<tr><td width="350px;">${businessName} <a href=${businessURL} target="_new">(yelp)</a></td><td width="400px;">${businessAddress}</td><td width="160px;">${businessCat}</td><td width="160px;">${lat}</td><td width="160px;">${long}</td><td style="text-align:right; width:70px;">${distance}</td></tr>`; 
 
-      businessInfo.innerHTML = `<tr><td width="600px;">${businessName} <a href=${businessURL} target="_new">(yelp)</a></td><td width="400px;">${businessAddress}</td><td width="160px;">${businessCat}</td><td width="60px;">${businessPrice} ${businessRating}</td><td style="text-align:right; width:70px;">${distance}</td></tr>`; 
+      businessInfo.innerHTML = `<tr><td width="660px;">${businessName} <a href=${businessURL} target="_new">(yelp)</a></td><td width="400px;">${businessAddress}</td><td width="160px;">${businessCat}</td><td width="80px;">${businessPrice} ${businessRating}</td><td width="40px;">${businessReviews}</td><td style="text-align:right; width:70px;">${distance}</td></tr>`; 
 	  
       // Create each details div
       let details = document.createElement('div');
