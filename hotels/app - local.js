@@ -116,7 +116,7 @@ function initMap(business, latlng) {
       
 	  // businessInfo.innerHTML = `<tr><td width="500px;">${businessName} -NEW <a href=${businessURL} target="_new">(yelp)</a></td><td width="400px;">${businessAddress}</td><td width="160px;">${businessCat}</td><td width="160px;">${lat}</td><td width="160px;">${long}</td><td style="text-align:right; width:70px;">${distance}</td></tr>`; 
 
-	  businessInfo.innerHTML = `<tr><td width="660px;">${businessName}<a href=${businessURL} target="_new">(yelp)</a></td><td width="400px;">${businessAddress}</td><td width="160px;">${businessCat}</td><td width="120px;">${businessPrice} ${businessRating} ${businessReviews}</td><td style="text-align:right; width:70px;">${distance}</td></tr>`; 
+	  businessInfo.innerHTML = `<tr><td width="660px;">${businessName}<a href=${businessURL} target="_new">(yelp)</a></td><td width="400px;">${businessAddress}</td><td width="160px;">${businessCat}</td><td width="80px;">${businessPrice} ${businessRating}</td><td width="40px;">${businessReviews}</td><td style="text-align:right; width:70px;">${distance}</td></tr>`; 
 	  
       // Create each details div
       let details = document.createElement('div');
